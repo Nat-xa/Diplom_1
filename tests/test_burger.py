@@ -36,3 +36,32 @@ class TestBurger:
         burger.remove_ingredient(0)
 
         assert burger.get_receipt() == Data.RECEIPT
+
+    def test_set_buns(self, mock_bun):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+
+        assert (burger.bun.get_name() == 'Булка обыкновенная') and (burger.bun.get_price() == 150)
+
+    def test_add_ingredient(self, mock_ingredient):
+        burger = Burger()
+        burger.add_ingredient(mock_ingredient)
+
+        assert len(burger.ingredients) == 1
+
+    def test_remove_ingredient(self, mock_bun, mock_ingredient):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_ingredient)
+        burger.remove_ingredient(0)
+
+        assert len(burger.ingredients) == 0
+
+    def test_move_ingredient(self, mock_bun, mock_ingredient, mock_ingredient_2):
+        burger = Burger()
+        burger.set_buns(mock_bun)
+        burger.add_ingredient(mock_ingredient)
+        burger.add_ingredient(mock_ingredient_2)
+        burger.move_ingredient(0, 1)
+
+        assert burger.ingredients[1] == mock_ingredient
